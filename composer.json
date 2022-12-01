@@ -1,5 +1,5 @@
 {
-    "name": "m1x0n/helpscout-docs-api-php",
+    "name": "wpdesk/helpscout-docs-api-php",
     "type": "library",
     "description": "API client for the Help Scout Docs API",
     "keywords": [
