@@ -55,7 +55,7 @@ class Collection extends AbstractApi
         $requestBody = $collection->toArray();
         $requestBody['reload'] = true;
 
-        [$id, $response] = $this->post("collections", $requestBody);
+        [$id, $response] = $this->post("collections?reload=true", $requestBody);
 
         $collectionData = (array)$response;
         $collectionData = reset($collectionData);

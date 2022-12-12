@@ -202,10 +202,10 @@ class Article extends AbstractApi
         $requestBody = $article->toArray();
         $requestBody['reload'] = true;
 
-        [, $response] = $this->post("articles", $requestBody);
+        [$id, $response] = $this->post("articles?reload=true", $requestBody);
 
         $articleData = (array)$response;
-        $articleData = reset($articleData);
+	    $articleData = reset($articleData);
 
         return new Models\Article($articleData);
     }
@@ -229,8 +229,8 @@ class Article extends AbstractApi
         $response = $this->put($url, $requestBody);
 
         $articleData = (array)$response;
-        $articleData = reset($articleData);
-        return new Models\Article($articleData);
+        reset($articleData);
+        return new Models\Article((object) $articleData);
     }
 
     public function uploadArticle(Models\UploadArticle $uploadArticle): void

@@ -54,10 +54,13 @@ class Category extends AbstractApi
 
         $requestBody['reload'] = true;
 
-        [$id, $response] = $this->post("categories", $requestBody);
+        [$id, $response] = $this->post("categories?reload=true", $requestBody);
 
         $categoryData = (array)$response;
         $categoryData = reset($categoryData);
+
+		$categoryData->createdAt = is_int($categoryData->createdAt)? date('Y-m-d\TH:i:s\Z'): $categoryData->createdAt;
+	    $categoryData->updatedAt = is_int($categoryData->updatedAt)? date('Y-m-d\TH:i:s\Z'): $categoryData->updatedAt;
 
         return new Models\Category($categoryData);
     }

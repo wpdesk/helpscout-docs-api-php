@@ -66,17 +66,20 @@ abstract class AbstractApi
      * @throws GuzzleException
      * @throws JsonException
      */
-    protected function post(string $url, array $requestBody): array
-    {
-        if (!$this->client->getApiKey()) {
-            throw new ApiException('Invalid API Key', 401);
-        }
+    protected function post(string $url, array $requestBody): array {
+	    if ( ! $this->client->getApiKey() ) {
+		    throw new ApiException( 'Invalid API Key', 401 );
+	    }
 
-        if ($this->client->isDebug()) {
-            $this->debug(json_encode($requestBody, JSON_THROW_ON_ERROR));
-        }
+	    if ( $this->client->isDebug() ) {
+		    $this->debug( json_encode( $requestBody, JSON_THROW_ON_ERROR ) );
+	    }
 
-        try {
+	    $requestBody = array_filter( $requestBody, static function ( $item ) {
+		    return $item !== null;
+	    } );
+
+	    try {
             $response = $this->client->getHttpClient()->request(
                 'POST',
                 DocsApiClient::API_URL . $url,
@@ -120,6 +123,9 @@ abstract class AbstractApi
         if ($this->client->isDebug()) {
             $this->debug(json_encode($requestBody, JSON_THROW_ON_ERROR));
         }
+	    $requestBody = array_filter( $requestBody, static function ( $item ) {
+		    return $item !== null;
+	    } );
 
         try {
             $response = $this->client->getHttpClient()->request(
