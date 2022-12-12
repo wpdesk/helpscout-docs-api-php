@@ -1,3 +1,6 @@
+### 3.0.2
+* Fixes so new API works
+
 ### 3.0
 **Breaking change**: Now package requires **php 7.4+**
 
